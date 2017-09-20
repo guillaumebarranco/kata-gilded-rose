@@ -14,7 +14,7 @@ Votre mission est d'ajouter une nouvelle fonctionnalité à notre système pour 
 
 Mais d'abord, laissez-moi vous présenter notre système :
 
-- Tous les éléments ont une valeur `sellIn` qui désigne le nombre de jours restant pour vendre l'article.
+- Tous les articles ont une valeur `sellIn` qui désigne le nombre de jours restant pour vendre l'article.
 - Tous les articles ont une valeur `quality` qui dénote combien l'article est précieux.
 - A la fin de chaque journée, notre système diminue ces deux valeurs pour chaque produit.
 
@@ -38,9 +38,10 @@ Juste une précision, un produit ne peut jamais voir sa qualité augmenter au-de
 # Notes
 
 Ce kata a été à l'origine créé par Terry Hughes et est [disponible sur GitHub dans sa version originale en C#](https://github.com/NotMyself/GildedRose). 
-Nous nous basons sur [la version d'Emily Bache](https://github.com/emilybache/GildedRose-Refactoring-Kata) que nous avons enrichie de tests pour vous permettre de vous concentrer sur le code
-plutôt que sur l'écriture de ces derniers.  
+Nous nous basons sur [la version d'Emily Bache](https://github.com/emilybache/GildedRose-Refactoring-Kata)
+
+Un mage nous a déjà élaboré un système quantique sur la branche 'solution' mais les gobelins n'était pas fan. Quoiqu'il en soit vous pouvez toujours jeter un oeil si vous êtes perdu.
 
 Pour lancer les tests, il faut exécuter les deux commandes suivantes :
-- npm install
-- npm run test
+- yarn 
+- yarn test
