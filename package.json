@@ -1,0 +1,35 @@
+{
+  "name": "gildedrose",
+  "version": "0.0.1",
+  "scripts": {
+    "test": "mocha --watch"
+  },
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@types/chai": "~3.5.2",
+    "@types/mocha": "~2.2.41",
+    "@types/node": "~7.0.18",
+    "chai": "~3.5.0",
+    "mocha": "~3.2.0",
+    "nyc": "~11.0.3",
+    "rimraf": "~2.5.2",
+    "ts-node": "~3.1.0",
+    "typescript": "~2.2.0"
+  },
+  "nyc": {
+    "extension": [
+      ".ts"
+    ],
+    "exclude": [
+      "**/*.d.ts",
+      "test/**"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "html",
+      "text"
+    ]
+  }
+}
