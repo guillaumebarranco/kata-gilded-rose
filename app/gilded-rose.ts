@@ -13,7 +13,7 @@ export class Item {
         this.legendary = legendary;
     }
 
-    updateQuality() {
+    updateQuality(): void {
 
         if(this.quality < 50) {
             this.quality++;
@@ -24,6 +24,16 @@ export class Item {
 
         if(this.quality > 0) {
             this.quality--;
+        }
+    }
+}
+
+export class ItemBackstage extends Item {
+
+    multipleUpdateQuality(x) {
+
+        for (let i = 0; i < x; ++i) {
+            this.updateQuality();
         }
     }
 }
@@ -42,13 +52,10 @@ export class Shop {
         ];
 
         if(fuckingItem.indexOf(element.name) !== -1 && element.sellIn === 0) {
-
             element.quality = 0;
 
         } else if(fuckingItem.indexOf(element.name) !== -1 && element.sellIn <= 5) {
-
-            element.updateQuality();
-            element.updateQuality();
+            element.multipleUpdateQuality(2);
 
         } else if(fuckingItem.indexOf(element.name) !== -1 && element.sellIn <= 10) {
             element.updateQuality();

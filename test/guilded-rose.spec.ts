@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { Item, Shop } from "../app/gilded-rose";
+import { Item, ItemBackstage, Shop } from "../app/gilded-rose";
 
 describe("Gilded Rose", () => {
 
@@ -80,7 +80,7 @@ describe("Gilded Rose", () => {
     it('increases the quality by 3 of the products that get better as they age when there is less than 5 days', () => {
 
         // Given
-        items.push(new Item('Backstage', 4, 30, true));
+        items.push(new ItemBackstage('Backstage', 4, 30, true));
 
         // When
         items = new Shop(items).updateQuality();
