@@ -2,15 +2,30 @@ export class Item {
     name: string;
     sellIn: number;
     quality: number;
-    getBetter: boolean;
-    legendary: boolean;
 
-    constructor(name, sellIn, quality, getBetter = false, legendary = false) {
+    constructor(name, sellIn, quality) {
         this.name = name;
         this.sellIn = sellIn;
         this.quality = quality;
-        this.getBetter = getBetter;
-        this.legendary = legendary;
+    }
+
+    handleQuality() {
+
+        this.decreaseSellIn();
+
+        if(this.quality > 0 && this.sellIn > 0) {
+            this.decreaseQuality();
+
+        } else if(this.quality > 0 && this.sellIn === 0) {
+            this.multipleDecreaseQuality(2);
+        }
+    }
+
+    decreaseSellIn() {
+
+        if(this.sellIn > 0) {
+            this.sellIn--;   
+        }
     }
 
     updateQuality(): void {
@@ -35,13 +50,43 @@ export class Item {
     }
 }
 
+export class ItemBetter extends Item {
+
+    handleQuality() {
+        this.decreaseSellIn();
+        this.updateQuality();
+    }
+}
+
 export class ItemBackstage extends Item {
+
+    handleQuality() {
+
+        this.decreaseSellIn();
+
+        if(this.sellIn === 0) {
+            this.quality = 0;
+
+        } else if(this.sellIn <= 5) {
+            this.multipleUpdateQuality(3);
+
+        } else if(this.sellIn <= 10) {
+            this.multipleUpdateQuality(2);
+        }
+    }
 
     multipleUpdateQuality(x) {
 
         for (let i = 0; i < x; ++i) {
             this.updateQuality();
         }
+    }
+}
+
+export class ItemLegendary extends Item {
+
+    handleQuality() {
+        this.quality = 80;
     }
 }
 
@@ -52,51 +97,10 @@ export class Shop {
         this.items = items;
     }
 
-    handleFuckingSpecialItem(element) {
-
-        const fuckingItem = [
-            "Backstage"
-        ];
-
-        if(fuckingItem.indexOf(element.name) !== -1 && element.sellIn === 0) {
-            element.quality = 0;
-
-        } else if(fuckingItem.indexOf(element.name) !== -1 && element.sellIn <= 5) {
-            element.multipleUpdateQuality(2);
-
-        } else if(fuckingItem.indexOf(element.name) !== -1 && element.sellIn <= 10) {
-            element.updateQuality();
-        }
-    }
-
     updateQuality(): Item[] {
 
         this.items.forEach((element, i) => {
-
-            if(element.legendary) {
-                element.quality = 80;
-                return;
-            }
-
-            if(element.sellIn > 0) {
-                element.sellIn--;   
-            }
-
-            if(element.getBetter) {
-
-                element.updateQuality();
-                this.handleFuckingSpecialItem(element);
-
-            // Normal element
-            } else {
-
-                if(element.quality > 0 && element.sellIn > 0) {
-                    element.decreaseQuality();
-
-                } else if(element.quality > 0 && element.sellIn === 0) {
-                    element.multipleDecreaseQuality(2);
-                }
-            }
+            element.handleQuality();
         });
 
         return this.items;

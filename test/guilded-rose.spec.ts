@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { Item, ItemBackstage, Shop } from "../app/gilded-rose";
+import { Item, ItemBetter, ItemBackstage, ItemLegendary, Shop } from "../app/gilded-rose";
 
 describe("Gilded Rose", () => {
 
@@ -36,8 +36,8 @@ describe("Gilded Rose", () => {
     it('increases the quality by 1 of the products that get better as they age', () => {
 
         // Given
-        items.push(new Item("Aged Brie", 20, 30, true));
-        items.push(new Item('Backstage', 20, 30, true));
+        items.push(new ItemBetter("Aged Brie", 20, 30));
+        items.push(new ItemBetter('Backstage', 20, 30));
 
         // When
         items = new Shop(items).updateQuality();
@@ -60,7 +60,7 @@ describe("Gilded Rose", () => {
     it('increases the quality by 2 of the products that get better as they age when there is less than 10 days', () => {
 
         // Given
-        items.push(new Item('Backstage', 8, 30, true));
+        items.push(new ItemBackstage('Backstage', 8, 30));
 
         // When
         items = new Shop(items).updateQuality();
@@ -80,7 +80,7 @@ describe("Gilded Rose", () => {
     it('increases the quality by 3 of the products that get better as they age when there is less than 5 days', () => {
 
         // Given
-        items.push(new ItemBackstage('Backstage', 4, 30, true));
+        items.push(new ItemBackstage('Backstage', 4, 30));
 
         // When
         items = new Shop(items).updateQuality();
@@ -100,7 +100,7 @@ describe("Gilded Rose", () => {
     it('backstage should have 0 quality as there is no day left', () => {
 
         // Given
-        items.push(new Item('Backstage', 0, 30, true));
+        items.push(new ItemBackstage('Backstage', 0, 30));
 
         // When
         items = new Shop(items).updateQuality();
@@ -141,11 +141,11 @@ describe("Gilded Rose", () => {
         });
     });
 
-    it('increases quality bu never more than 50', () => {
+    it('increases quality but never more than 50', () => {
 
         // Given
-        items.push(new Item("Aged Brie", 20, 50, true));
-        items.push(new Item('Backstage', 20, 50, true));
+        items.push(new ItemBetter("Aged Brie", 20, 50));
+        items.push(new ItemBetter('Backstage', 20, 50));
 
         // When
         items = new Shop(items).updateQuality();
@@ -165,10 +165,10 @@ describe("Gilded Rose", () => {
         });
     });
 
-    it('Sulfuras product should not lose any days to sale nor quality', () => {
+    it('Legendary item product should not lose any days to sale nor quality', () => {
 
         // Given
-        items.push(new Item("Sulfuras", 10, 50, false, true));
+        items.push(new ItemLegendary("Sulfuras", 10, 50));
 
         // When
         items = new Shop(items).updateQuality();
