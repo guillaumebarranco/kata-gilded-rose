@@ -168,7 +168,7 @@ describe("Gilded Rose", () => {
     it('Sulfuras product should not lose any days to sale nor quality', () => {
 
         // Given
-        items.push(new Item("Sulfuras", 10, 50, true));
+        items.push(new Item("Sulfuras", 10, 50, false, true));
 
         // When
         items = new Shop(items).updateQuality();

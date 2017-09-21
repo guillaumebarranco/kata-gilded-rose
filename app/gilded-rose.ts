@@ -3,12 +3,14 @@ export class Item {
     sellIn: number;
     quality: number;
     getBetter: boolean;
+    legendary: boolean;
 
-    constructor(name, sellIn, quality, getBetter = false) {
+    constructor(name, sellIn, quality, getBetter = false, legendary = false) {
         this.name = name;
         this.sellIn = sellIn;
         this.quality = quality;
         this.getBetter = getBetter;
+        this.legendary = legendary;
     }
 
     updateQuality() {
@@ -33,11 +35,31 @@ export class Shop {
         this.items = items;
     }
 
+    handleFuckingSpecialItem(element) {
+
+        const fuckingItem = [
+            "Backstage"
+        ];
+
+        if(fuckingItem.indexOf(element.name) !== -1 && element.sellIn === 0) {
+
+            element.quality = 0;
+
+        } else if(fuckingItem.indexOf(element.name) !== -1 && element.sellIn <= 5) {
+
+            element.updateQuality();
+            element.updateQuality();
+
+        } else if(fuckingItem.indexOf(element.name) !== -1 && element.sellIn <= 10) {
+            element.updateQuality();
+        }
+    }
+
     updateQuality(): Item[] {
 
         this.items.forEach((element, i) => {
 
-            if(element.name === "Sulfuras") {
+            if(element.legendary) {
                 element.quality = 80;
                 return;
             }
@@ -46,29 +68,12 @@ export class Shop {
                 element.sellIn--;   
             }
 
-            const fuckingItem = [
-                "Backstage"
-            ];
-
             if(element.getBetter) {
 
                 element.updateQuality();
+                this.handleFuckingSpecialItem(element);
 
-                // handle fucking item
-
-                if(fuckingItem.indexOf(element.name) !== -1 && element.sellIn === 0) {
-
-                    element.quality = 0;
-
-                } else if(fuckingItem.indexOf(element.name) !== -1 && element.sellIn <= 5) {
-
-                    element.updateQuality();
-                    element.updateQuality();
-
-                } else if(fuckingItem.indexOf(element.name) !== -1 && element.sellIn <= 10) {
-                    element.updateQuality();
-                }
-
+            // Normal element
             } else {
 
                 if(element.quality > 0 && element.sellIn > 0) {
