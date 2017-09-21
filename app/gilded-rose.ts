@@ -26,6 +26,13 @@ export class Item {
             this.quality--;
         }
     }
+
+    multipleDecreaseQuality(x) {
+
+        for (let i = 0; i < x; ++i) {
+            this.decreaseQuality();
+        }
+    }
 }
 
 export class ItemBackstage extends Item {
@@ -87,8 +94,7 @@ export class Shop {
                     element.decreaseQuality();
 
                 } else if(element.quality > 0 && element.sellIn === 0) {
-                    element.decreaseQuality();
-                    element.decreaseQuality();
+                    element.multipleDecreaseQuality(2);
                 }
             }
         });
