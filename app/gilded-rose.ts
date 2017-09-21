@@ -17,36 +17,20 @@ export class Item {
             this.decreaseQuality();
 
         } else if(this.quality > 0 && this.sellIn === 0) {
-            this.multipleDecreaseQuality(2);
+            this.decreaseQuality(2);
         }
     }
 
     decreaseSellIn() {
-
-        if(this.sellIn > 0) {
-            this.sellIn--;   
-        }
+        if(this.sellIn > 0) this.sellIn--;
     }
 
-    updateQuality(): void {
-
-        if(this.quality < 50) {
-            this.quality++;
-        }
+    updateQuality(x = 1): void {
+        for (let i = 0; i < x; ++i) if(this.quality < 50) this.quality++;
     }
 
-    decreaseQuality() {
-
-        if(this.quality > 0) {
-            this.quality--;
-        }
-    }
-
-    multipleDecreaseQuality(x) {
-
-        for (let i = 0; i < x; ++i) {
-            this.decreaseQuality();
-        }
+    decreaseQuality(x = 1) {
+        for (let i = 0; i < x; ++i) if(this.quality > 0) this.quality--;
     }
 }
 
@@ -58,7 +42,7 @@ export class ItemBetter extends Item {
     }
 }
 
-export class ItemBackstage extends Item {
+export class ItemBackstage extends ItemBetter {
 
     handleQuality() {
 
@@ -68,17 +52,10 @@ export class ItemBackstage extends Item {
             this.quality = 0;
 
         } else if(this.sellIn <= 5) {
-            this.multipleUpdateQuality(3);
+            this.updateQuality(3);
 
         } else if(this.sellIn <= 10) {
-            this.multipleUpdateQuality(2);
-        }
-    }
-
-    multipleUpdateQuality(x) {
-
-        for (let i = 0; i < x; ++i) {
-            this.updateQuality();
+            this.updateQuality(2);
         }
     }
 }
@@ -99,10 +76,7 @@ export class Shop {
 
     updateQuality(): Item[] {
 
-        this.items.forEach((element, i) => {
-            element.handleQuality();
-        });
-
+        this.items.map((element) => element.handleQuality());
         return this.items;
     }
 }
